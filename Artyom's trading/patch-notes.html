@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Artyom Casino</title>
+        <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-ETVZYD62PN"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-ETVZYD62PN');
+    </script>
+    <style>
+        * {
+           padding: 0;
+           margin: 0;
+        }
+
+        /* --- 1. EASY EDIT ZONE: Change colors/sizes here --- */
+        :root {
+            transition: all 0.3s ease-in;
+            background-color: #1a1a1a;
+            --box-color: #222;
+            --text-color: #fff;
+            --accent-color: crimson; /* Button color */
+            --slot-border: gold;
+            --slot-bg: #fff;
+            --slot-text: #000;
+        }
+
+        /* --- 2. Standard CSS --- */
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Courier New', Courier, monospace;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+        }
+
+        .machine-container {
+            border: 4px solid #444;
+            padding: 40px;
+            border-radius: 15px;
+            background-color: var(--box-color);
+            box-shadow: 0 0 20px rgba(0,0,0,0.8);
+            width: 500px;
+        }
+
+        .slots {
+            display: flex;
+            gap: 15px;
+            margin: 20px 0;
+            background: #000;
+            padding: 20px;
+            border-radius: 10px;
+            border: 2px solid #666;
+            justify-content: center;
+        }
+
+        .reel {
+            font-size: 60px;
+            width: 80px;
+            height: 80px;
+            background-color: var(--slot-bg);
+            color: var(--slot-text);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 5px;
+            border: 3px solid var(--slot-border);
+        }
+
+        #message {
+            font-size: 18px;
+            min-height: 60px;
+            margin-bottom: 20px;
+            color: #bbb;
+            white-space: pre-wrap; 
+        }
+
+        button {
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 20px;
+            cursor: pointer;
+            border-radius: 5px;
+            width: 100%; /* Makes button fill the container width */
+            margin-left: 50px;
+        }
+
+        .slot-container {
+            display: flex;
+            flex-direction: row;
+        }
+
+        button:hover { filter: brightness(1.2); }
+        button:active { transform: scale(0.98); }
+
+        .tickets {
+            width: 80px;
+            height: 80px;
+        }
+
+        .tickets-counter {
+            width: 250px;
+            display: flex;
+            align-self: flex-end;
+            flex-direction: row;
+            justify-content: end;
+            align-items: center;
+            gap: 10px;
+        }
+
+        #tickets-multiplier {
+            font-size: 30px;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .wrapper {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            padding: 20%;
+            padding-top: 10%;
+            position: relative;
+        }
+
+        .store {
+            position: absolute;
+            background-color: #777;
+            border-radius: 15px;
+            height: 500px;
+            width: 40%;
+            font-family: Arial, Helvetica, sans-serif;
+            overflow-y: scroll;
+            z-index: 20;
+        }
+
+        .store-title {
+            margin-top: 25px;
+            display: inline-block;
+            /* justify-self: center; */
+        }
+
+        .Purchase-button {
+            text-decoration: none;
+            color: #fff;
+            display: block;
+        }
+
+        .close-button {
+            color: red;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 25px;
+            display: inline-block;
+            position: absolute;
+            right: 25px;
+            top: 25px;
+        }
+
+        .store-header {
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 40px;
+            position: sticky;
+            top: 0;
+            background-color: #777;
+            z-index: 10;
+        }
+
+        .purchase-container {
+            display: block;
+        }
+
+        .outer-purchase-container {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            flex-direction: row;
+            margin-bottom: 30px;
+        }
+
+        .version-container {
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: flex-end;
+            position: absolute;
+            bottom: 0;
+            padding: 10px 20px;
+            box-sizing: border-box;
+        }
+
+        .store-icon {
+            width: 100px;
+            left: -5px;
+            position: relative;
+            filter: invert(100%);
+        }
+
+        .store-button-container {
+            display: flex;
+            flex-direction: column;
+            align-self: flex-start;
+            justify-content: flex-start;
+        }
+
+        #storeButton {
+            text-decoration: none;
+            color: #fff;
+        }
+
+        .header {
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between
+        }
+
+        .build-container {
+            display: block;
+        }
+
+        #patch-notes {
+            display: block;
+            text-decoration: none;
+            color: #fff;
+            text-align: end;
+        }
+
+        .version {
+            display: block;
+        }
+
+        .feature {
+            display: list-item;
+            text-align: start;
+            font-size: 25px;
+            list-style: inside disc;
+        }
+
+        .title {
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            font-size: 20px;
+            margin-bottom: 50px;
+        }
+
+        #subtitle-version {
+            font-size: 35px;
+        }
+
+        .home-button {
+            text-decoration: none;
+            color: #fff;
+            display: flex;
+            font-size: 50px;
+            font-family: Arial, Helvetica, sans-serif;
+            align-self: flex-start;
+            background-color: #444;
+            padding: 10px 20px;
+            border-radius: 15px;
+            transition: all 0.1s ease-in;
+            cursor: pointer;
+        }
+
+        .home-button:hover {
+            color: red;
+        }
+
+        .emergency {
+            color: red;
+        }
+
+        .list {
+            overflow-y: scroll;
+            max-height: 40%;
+            list-style-type: disc;
+        }
+
+        .list-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center
+        }
+
+        #roadmap {
+            display: block;
+            text-decoration: none;
+            color: #fff;
+            text-align: start;
+            transition: all 0.1s ease-in-out;
+        }
+
+        #roadmap:hover {
+            text-decoration: underline;
+        }
+
+        /* Special class for winning text */
+        .winner { color: gold !important; font-weight: bold; text-shadow: 0 0 10px yellow; }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="list-container">
+            <a href="main.html" class="home-button">X</a>
+            <h1 class="title">Patch Notes</h1>
+            <h2 class="subtitle">Things added in <p id="subtitle-version">Error -1</p></h2>
+            <ul class="list">
+                <li class="feature emergency">Emergency maintainance</li>
+                <li class="feature">Bug fixes</li>
+                <li class="feature emergency">Emergency bug fixes</li>
+                <li class="feature emergency">Severe game affecting bug fixes</li>
+                <li class="feature emergency">Winning prize & odds fixed</li>
+                <li class="feature emergency">Prizes for winning were changed - try getting 777 to find out what will happen :D</li>
+                <li class="feature emergency">Store title fixed</li>
+                <li class="feature">JavaScript separated from HTML</li>
+                <li class="feature">Checkout menu added</li>
+                <li class="feature">Now every button is underlined when you hover over it</li>
+                <li class="feature emergency">Now amount of tickets does not reset when page is refreshed</li>
+                <li class="feature">New icons added</li>
+                <li class="feature">Disclaimer screen made home page</li>
+                <li class="feature">Debugging tools introduced to ensure that the game works the best way possible</li>
+                <li class="feature">Disclaimer text fixed</li>
+                <li class="feature">Easter eggs!</li>
+                <li class="feature emergency">Emergency git bug fixes</li>
+                <li class="feature">README readded on GitHub repository</li>
+                <li class="feature emergency">Emergency Cookie & victory maintainance</li>
+                <li class="feature">Features Roadmap</li>
+                <li class="feature">UI redesign</li>
+                <li class="feature">Credits added</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="version-container">
+        <div class="build-container">
+            <a href="roadmap.html" id="roadmap">Roadmap</a>
+            <p class="version" id="version">Error -1</p>
+        </div>
+        <div class="build-container">
+            <a href="#" id="patch-notes">Patch notes</a>
+            <p class="version build" id="build">Error -1</p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,48 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Artyom's trading</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="main">
+        <div class="header">
+            <div class="wrapper">
+                <div class="header-content">
+                    <p class="header-text">Coins: 0</p>
+                    <h1 class="header-title">Artyom's trading</h1>
+                    <p class="header-text">Social credits: 0</p>
+                </div>
+            </div>
+        </div>
+
+        <a id="enter-button" class="enter-button" onclick="tradeAppear()">Enter the web</a>
+
+        <div class="offer" id="offer">
+            <div class="wrapper">
+                <div class="offer-content">
+                    <h2 class="offer-title">⚠️ Trade offer ⚠️</h2>
+                    <h3 class="offer-subtitle" id="offer-name">From: John Pork</h3>
+                    <h4 class="offer-subtitle-subtitle" id="offer-subtitle">The ruler of Switzerland</h4>
+                    <h3 class="offer-gives">You give:</h3>
+                    <h4 class="offer-text">10x coins</h4>
+                    <h3 class="offer-gives" id="offer-reward-title">John Pork gives:</h3>
+                    <h4 class="offer-text" id="offer-reward">10x pork</h4>
+                    <div class="offer-buttons">
+                        <a class="offer-button" id="accept-button" onclick="tradeClose()">V</a>
+                        <a class="offer-button" id="decline-button" onclick="tradeClose()">X</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="version-container">
+                <p class="version" id="version">Infinite Trade v0.1a</p>
+                <p class="version build" id="build">build a23Id326B</p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
