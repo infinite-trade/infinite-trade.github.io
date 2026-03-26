@@ -2,7 +2,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Artyom's trading</title>
+    <title>Infinite trade</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -10,8 +10,8 @@
         <div class="header">
             <div class="wrapper">
                 <div class="header-content">
-                    <p class="header-text">Coins: 0</p>
-                    <h1 class="header-title">Artyom's trading</h1>
+                    <p class="header-text" id="coin-display">Coins: 10</p>
+                    <h1 class="header-title">Infinite Trade</h1>
                     <p class="header-text">Social credits: 0</p>
                 </div>
             </div>
@@ -23,23 +23,23 @@
             <div class="wrapper">
                 <div class="offer-content">
                     <h2 class="offer-title">⚠️ Trade offer ⚠️</h2>
-                    <h3 class="offer-subtitle" id="offer-name">From: John Pork</h3>
-                    <h4 class="offer-subtitle-subtitle" id="offer-subtitle">The ruler of Switzerland</h4>
+                    <h3 class="offer-subtitle" id="offer-name">Error -1</h3>
+                    <h4 class="offer-subtitle-subtitle" id="offer-subtitle">Troubleshooting: Try pressing fn and f5 at the same time, try rebooting your browser/computer, and make sure your internet network is stable. If this will not work, try doing the steps below:</h4>
                     <h3 class="offer-gives">You give:</h3>
-                    <h4 class="offer-text">10x coins</h4>
-                    <h3 class="offer-gives" id="offer-reward-title">John Pork gives:</h3>
-                    <h4 class="offer-text" id="offer-reward">10x pork</h4>
+                    <h4 class="offer-text" id="offer-price">Step 1. Press settings button</h4>
+                    <h3 class="offer-gives" id="offer-reward-title">Step 2. Press "Report Bugs"</h3>
+                    <h4 class="offer-text" id="offer-reward">Step 3. Fill out the form</h4>
                     <div class="offer-buttons">
-                        <a class="offer-button" id="accept-button" onclick="tradeClose()">V</a>
-                        <a class="offer-button" id="decline-button" onclick="tradeClose()">X</a>
+                        <a class="offer-button" id="accept-button" onclick='tradeClose("accept")'>V</a>
+                        <a class="offer-button" id="decline-button" onclick='tradeClose("decline")'>X</a>
                     </div>
                 </div>
             </div>
         </div>
 
         <div class="version-container">
-                <p class="version" id="version">Infinite Trade v0.1a</p>
-                <p class="version build" id="build">build a23Id326B</p>
+                <p class="version" id="version">Infinite Trade v0.2a</p>
+                <p class="version build" id="build">build a24Id326B</p>
         </div>
     </div>
 
