@@ -12,34 +12,82 @@
                 <div class="header-content">
                     <p class="header-text" id="coin-display">Coins: 10</p>
                     <h1 class="header-title">Infinite Trade</h1>
-                    <p class="header-text">Social credits: 0</p>
+                    <p class="header-text" id="socialcredit-display">Social credits: 0</p>
                 </div>
             </div>
         </div>
 
-        <a id="enter-button" class="enter-button" onclick="tradeAppear()">Enter the web</a>
+        <div class="main-container">
 
-        <div class="offer" id="offer">
-            <div class="wrapper">
-                <div class="offer-content">
-                    <h2 class="offer-title">⚠️ Trade offer ⚠️</h2>
-                    <h3 class="offer-subtitle" id="offer-name">Error -1</h3>
-                    <h4 class="offer-subtitle-subtitle" id="offer-subtitle">Troubleshooting: Try pressing fn and f5 at the same time, try rebooting your browser/computer, and make sure your internet network is stable. If this will not work, try doing the steps below:</h4>
-                    <h3 class="offer-gives">You give:</h3>
-                    <h4 class="offer-text" id="offer-price">Step 1. Press settings button</h4>
-                    <h3 class="offer-gives" id="offer-reward-title">Step 2. Press "Report Bugs"</h3>
-                    <h4 class="offer-text" id="offer-reward">Step 3. Fill out the form</h4>
-                    <div class="offer-buttons">
-                        <a class="offer-button" id="accept-button" onclick='tradeClose("accept")'>V</a>
-                        <a class="offer-button" id="decline-button" onclick='tradeClose("decline")'>X</a>
+            <div class="UI-column">
+                <button class="UI-button" id="buttonl1" onclick="armyMenuOpening()">Army menu</button>
+                <button class="UI-button" id="buttonl2">Debug L2</button>
+                <button class="UI-button" id="buttonl3">Debug L3</button>
+                <button class="UI-button" id="buttonl4">Debug L4</button>
+                <button class="UI-button" id="buttonl5">Debug L5</button>
+                <button class="UI-button" id="buttonl6">Debug L6</button>
+                <button class="UI-button" id="buttonl7">Debug L7</button>
+                <button class="UI-button" id="buttonl8">Debug L8</button>
+                <button class="UI-button" id="buttonl9">Debug L9</button>
+                <button class="UI-button" id="buttonl10">Debug L10</button>
+                <button class="UI-button" id="buttonl11">Debug L11</button>
+                <button class="UI-button" id="buttonl12">Debug L12</button>
+                <button class="UI-button" id="buttonl13">Debug L13</button>
+                <button class="UI-button" id="buttonl14">Debug L14</button>
+                <button class="UI-button" id="buttonl15">Debug L15</button>
+            </div>
+
+            <div class="armyMenu" id="armyMenu">
+                <div>
+                <h2 class="armyTitle">Army menu</h2>
+                <h3 class="armySubtitle" id="armyClass">Class: Servant 3 class</h3>
+                </div>
+                <button id="armyButton" onclick="armyButton()">Click me!</button>
+                <h4 class="armyHelp">Help: Press button above to do your duty (wind up the generator); the more clicks you do the better class you get. Better classes unlock more features, as well as free items, social credits, and better pay</h4>
+            </div>
+
+            <a id="enter-button" class="enter-button" onclick="tradeAppear()">Enter the web</a>
+
+            <div class="offer" id="offer">
+                <div class="wrapper">
+                    <div class="offer-content">
+                        <h2 class="offer-title">⚠️ Trade offer ⚠️</h2>
+                        <h3 class="offer-subtitle" id="offer-name">Error -1</h3>
+                        <h4 class="offer-subtitle-subtitle" id="offer-subtitle">Troubleshooting: Try pressing control, fn, and f5 at the same time, try rebooting your browser/computer, and make sure your internet network is stable. If this will not work, try doing the steps below:</h4>
+                        <h3 class="offer-gives">You give:</h3>
+                        <h4 class="offer-text" id="offer-price">Step 1. Press settings button</h4>
+                        <h3 class="offer-gives" id="offer-reward-title">Step 2. Press "Report Bugs"</h3>
+                        <h4 class="offer-text" id="offer-reward">Step 3. Fill out the form</h4>
+                        <div class="offer-buttons">
+                            <a class="offer-button" id="accept-button" onclick='tradeClose("accept")'>V</a>
+                            <a class="offer-button" id="decline-button" onclick='tradeClose("decline")'>X</a>
+                        </div>
                     </div>
                 </div>
+            </div>
+
+            <div class="UI-column">
+                <button class="UI-button" id="buttonr1" onclick="navyMenu()">Navy menu</button>
+                <button class="UI-button" id="buttonr2">Debug R2</button>
+                <button class="UI-button" id="buttonr3">Debug R3</button>
+                <button class="UI-button" id="buttonr4">Debug R4</button>
+                <button class="UI-button" id="buttonr5">Debug R5</button>
+                <button class="UI-button" id="buttonr6">Debug R6</button>
+                <button class="UI-button" id="buttonr7">Debug R7</button>
+                <button class="UI-button" id="buttonr8">Debug R8</button>
+                <button class="UI-button" id="buttonr9">Debug R9</button>
+                <button class="UI-button" id="buttonr10">Debug R10</button>
+                <button class="UI-button" id="buttonr11">Debug R11</button>
+                <button class="UI-button" id="buttonr12">Debug R12</button>
+                <button class="UI-button" id="buttonr13">Debug R13</button>
+                <button class="UI-button" id="buttonr14">Debug R14</button>
+                <button class="UI-button" id="buttonr15">Debug R15</button>
             </div>
         </div>
 
         <div class="version-container">
-                <p class="version" id="version">Infinite Trade v0.2a</p>
-                <p class="version build" id="build">build a24Id326B</p>
+                <p class="version" id="version">Infinite Trade v0.3a</p>
+                <p class="version build" id="build">build a22Id426A</p>
         </div>
     </div>
 
