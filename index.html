@@ -21,7 +21,7 @@
 
             <div class="UI-column">
                 <button class="UI-button" id="buttonl1" onclick="armyMenuOpening()">Army menu</button>
-                <button class="UI-button" id="buttonl2">Debug L2</button>
+                <button class="UI-button" id="buttonl2" onclick="inventoryOpening()">Inventory</button>
                 <button class="UI-button" id="buttonl3">Debug L3</button>
                 <button class="UI-button" id="buttonl4">Debug L4</button>
                 <button class="UI-button" id="buttonl5">Debug L5</button>
@@ -37,13 +37,43 @@
                 <button class="UI-button" id="buttonl15">Debug L15</button>
             </div>
 
-            <div class="armyMenu" id="armyMenu">
-                <div>
-                <h2 class="armyTitle">Army menu</h2>
-                <h3 class="armySubtitle" id="armyClass">Class: Servant 3 class</h3>
+            <div class="itemMenu" id="itemMenu">
+                <h2 id="itemMenuTitle">Are you sure you'd like to sell Error -2 for Error -2 coins?</h2>
+                <div class="itemMenuButtons">
+                    <button class="itemMenuButton" id="sellButton">Sell</button>
+                    <button class="itemMenuButton" id="useButton">Use</button>
+                    <button class="itemMenuButton" id="cancelButton" onclick="closeItemMenu()">Cancel</button>
                 </div>
-                <button id="armyButton" onclick="armyButton()">Click me!</button>
-                <h4 class="armyHelp">Help: Press button above to do your duty (wind up the generator); the more clicks you do the better class you get. Better classes unlock more features, as well as free items, social credits, and better pay</h4>
+            </div>
+
+            <div class="Inventory" id="inventoryMenu">
+                <div class="inventoryHeader">
+                    <button class="closeButton" onclick="inventoryOpening()">X</button>
+                    <h2 class="inventoryTitle">Inventory</h2>
+                </div>
+                <div class="InventoryList" id="inventoryList">
+                    
+                </div>
+            </div>
+
+            <div class="armyMenu" id="armyMenu">
+                <div class="armyInterface" id="armyInterface">
+                    <div class="armyTitle" id="armyTitleContainer">
+                        <div class="armyTitleContainer">
+                            <button class="closeButton" onclick="armyMenuOpening()">X</button>
+                            <h2 class="armyTitle" id="armyTitle">Army menu</h2>
+                        </div>
+                        <h3 class="armySubtitle" id="armyClass">Class: Servant 3 class</h3>
+                    </div>
+                    <button id="armyButton" onclick="armyButton()">Click me!</button>
+                    <h4 class="armyHelp">Help: Press button above to do your duty (wind up the generator); the more social credits you get, which you can exchange for different stuff in the storefront below. Exchangeables include coins, leaving, or better classes. Better classes unlock more features, as well as free items, social credits, and better pay</h4>
+                </div>
+                <div class="armyStore">
+                    <h2 class="armyStoreTitle">Army Store</h2>
+                    <button class="purchaseButton" onclick="purchaseCoins(1)">Exchange 10 social credits for 1 coin</button>
+                    <button class="purchaseButton" onclick="buyNewRank(0, 50)">Exchange 50 social credits for a new class</button>
+                    <button class="purchaseButton" onclick="quitArmy()" id="quitArmyButton">Exchange 100 coins to quit army</button>
+                </div>
             </div>
 
             <a id="enter-button" class="enter-button" onclick="tradeAppear()">Enter the web</a>
@@ -86,8 +116,8 @@
         </div>
 
         <div class="version-container">
-                <p class="version" id="version">Infinite Trade v0.3a</p>
-                <p class="version build" id="build">build a22Id426A</p>
+                <p class="version" id="version">Infinite Trade v0.4a</p>
+                <p class="version build" id="build">build a27d426A</p>
         </div>
     </div>
 

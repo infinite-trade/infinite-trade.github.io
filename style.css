@@ -96,8 +96,20 @@ body {
 }
 
 .enter-button {
+    font-size: 25px;
     cursor: pointer;
     text-align: center;
+    background-color: #777;
+    border-radius: 15px;
+    color: #fff;
+    padding: 5px 15px;
+    font-weight: 600;
+    transition: all 0.1s ease-in-out;
+}
+
+.enter-button:hover {
+    color: #4287f5;
+    background: none;
 }
 
 .main-container {
@@ -131,6 +143,13 @@ body {
     top: 0;
     padding-top: 15px;
     padding-bottom: 10px;
+    background-color: #4B5320;
+    font-size: 30px;
+    font-weight: 700;
+}
+
+.armySubtitle {
+    font-size: 15px;
 }
 
 .armyMenu {
@@ -150,6 +169,127 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    overflow-y: auto;
+    overflow-y: scroll;
     display: none;
+}
+
+.armyInterface {
+    width: 100%;
+    height: 350px;
+    flex-shrink: 0;
+    /* background-color: #4B5320; */
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.closeButton {
+    background: none;
+    border-width: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #fc0303;
+    font-size: 20px;
+    cursor: pointer;
+    position: absolute;
+    left: 15px;
+}
+
+.armyTitleContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.armyStore {
+    margin-top: 50px;
+    flex-shrink: 0;
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.inventory {
+    position: absolute;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    top: 0;
+    margin: auto;
+    z-index: 20;
+    width: 250px;
+    height: 350px;
+    border-radius: 15px;
+    text-align: center;
+    background-color: #fff;
+    padding: 15px 20px;
+    display: none;
+    flex-direction: column;
+    overflow-y: scroll;
+}
+
+.inventoryList {
+    display: flex;
+    flex-direction: column;
+}
+
+.inventory-button {
+    margin-top: 15px;
+}
+
+.itemMenu {
+    width: 350px;
+    height: 250px;
+    position: absolute;
+    margin: auto;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    top: 0;
+    z-index: 40;
+    text-align: center;
+    background-color: #666;
+    border-radius: 15px;
+    padding: 10px 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    color: #fff;
+    display: none;
+}
+
+.itemMenuButton {
+    font-size: 25px;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #fff;
+    cursor: pointer;
+    background: none;
+    border: none;
+    background-color: #777;
+    border-radius: 5px;
+    padding: 5px 10px;
+    transition: all 0.1s ease-in-out;
+}
+
+.itemMenuButtons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 0 15px;
+    margin-bottom: 15px;
+}
+
+#cancelButton:hover {
+    color: #fc0303;
+}
+
+#useButton:hover {
+    color: #ffaf03;
+}
+
+#sellButton:hover {
+    color: #11cf20;
 }
