@@ -2,7 +2,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Infinite trade</title>
+    <title>Infinite Trade</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -10,9 +10,9 @@
         <div class="header">
             <div class="wrapper">
                 <div class="header-content">
-                    <p class="header-text" id="coin-display">Coins: 10</p>
+                    <p class="header-text" id="coin-display">Error 1</p>
                     <h1 class="header-title">Infinite Trade</h1>
-                    <p class="header-text" id="socialcredit-display">Social credits: 0</p>
+                    <p class="header-text" id="socialcredit-display">Error 1</p>
                 </div>
             </div>
         </div>
@@ -34,11 +34,36 @@
                 <button class="UI-button" id="buttonl12">Debug L12</button>
                 <button class="UI-button" id="buttonl13">Debug L13</button>
                 <button class="UI-button" id="buttonl14">Debug L14</button>
-                <button class="UI-button" id="buttonl15">Debug L15</button>
+                <button class="UI-button" id="buttonl15">Settings</button>
+            </div>
+
+            <div class="data-deletion-menu" id="dataDeletionMenu">
+                <h2 class="data-deletion-menu-title">Are you sure you would like to delete all your data?</h2>
+                <h3 class="data-deletion-menu-subtitle">This action is <span class="data-deletion-menu-subtitle-red">irrevesible</span></h3>
+                <div class="itemMenuButtons">
+                    <button class="itemMenuButton" id="dataDeletionButton">Yes</button>
+                    <button class="itemMenuButton button" id="homeButton">No</button>
+                </div>
+            </div>
+
+            <div class="settings" id="settings">
+                <div class="popup-header">
+                    <button class="closeButton" id="settingsClose">x</button>
+                    <h2 class="menu-title">Settings</h2>
+                </div>
+                <div class="settings-list-container">
+                    <ul class="settings-list">
+                        <li class="setting"><button class="button data-deletion-button" id="openDataDeletionMenuButton">Delete all data</button></li>
+                        <li class="setting"><a href="https://forms.gle/jKMrfyN8y4RZD8e88" class="button" target="_blank">Report bugs</a></li>
+                        <li class="setting"><a href="https://forms.gle/Vnwjmt6j7NeP1tBV7" class="button" target="_blank">Leave a suggestion</a></li>
+                        <li class="setting"><a href="https://github.com/infinite-trade/infinite-trade.github.io" class="button" target="blank">Our GitHub</a></li>
+                    </ul>
+                </div>
+                <p class="settings-footer" id="settings-footer">Infinite Trade</p>
             </div>
 
             <div class="itemMenu" id="itemMenu">
-                <h2 id="itemMenuTitle">Are you sure you'd like to sell Error -2 for Error -2 coins?</h2>
+                <h2 id="itemMenuTitle">Are you sure you'd like to sell Error 2 for Error 2 coins?</h2>
                 <div class="itemMenuButtons">
                     <button class="itemMenuButton" id="sellButton">Sell</button>
                     <button class="itemMenuButton" id="useButton">Use</button>
@@ -72,7 +97,7 @@
                 <div class="armyStore">
                     <h2 class="armyStoreTitle">Army Store</h2>
                     <button class="purchaseButton" onclick="purchaseCoins(1)" id="coinPurchaseButton">Exchange 10 social credits for 1 coin</button>
-                    <button class="purchaseButton" id="armyClassPurchase" onclick="buyNewRank(0, 50)">Exchange Error -1 social credits for a new class</button>
+                    <button class="purchaseButton" id="armyClassPurchase" onclick="buyNewRank(0, 50)">Error 4</button>
                     <button class="purchaseButton" onclick="quitArmy()" id="quitArmyButton">Exchange 100 coins to quit army</button>
                 </div>
             </div>
@@ -83,12 +108,12 @@
                 <div class="wrapper">
                     <div class="offer-content">
                         <h2 class="offer-title">⚠️ Trade offer ⚠️</h2>
-                        <h3 class="offer-subtitle" id="offer-name">Error -1</h3>
+                        <h3 class="offer-subtitle" id="offer-name">Error 3</h3>
                         <h4 class="offer-subtitle-subtitle" id="offer-subtitle">Troubleshooting: Try pressing control, fn, and f5 at the same time, try rebooting your browser/computer, and make sure your internet network is stable. If this will not work, try doing the steps below:</h4>
                         <h3 class="offer-gives">You give:</h3>
                         <h4 class="offer-text" id="offer-price">Step 1. Press settings button</h4>
                         <h3 class="offer-gives" id="offer-reward-title">Step 2. Press "Report Bugs"</h3>
-                        <h4 class="offer-text" id="offer-reward">Step 3. Fill out the form</h4>
+                        <h4 class="offer-text" id="offer-reward">Step 3. Fill out the form. If settings can't open, please open following link: https://forms.gle/jKMrfyN8y4RZD8e88</h4>
                         <div class="offer-buttons">
                             <a class="offer-button" id="accept-button" onclick='tradeClose("accept")'>V</a>
                             <a class="offer-button" id="decline-button" onclick='tradeClose("decline")'>X</a>
@@ -117,8 +142,8 @@
         </div>
 
         <div class="version-container">
-                <p class="version" id="version">Infinite Trade v0.5.9a</p>
-                <p class="version build" id="build">build a4R826B</p>
+                <p class="version" id="version"><a href="https://forms.gle/jKMrfyN8y4RZD8e88">Error 1. Please attempt reloading this page and enabling JavaScript or trying on a different device. If it still will not work, click on this text</a></p>
+                <p class="version build" id="build">build a10Id926B</p>
         </div>
     </div>
 

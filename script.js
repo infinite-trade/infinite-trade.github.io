@@ -369,6 +369,63 @@ const traders = {
         },
         priority: 3
     },
+    "Fastfood worker": {
+        subtitle: "Hamburger",
+        lootPool: {
+            "Hamburger": {
+                price: 7,
+                id: 33,
+                sells: false,
+                sellsfor: 5,
+                sellsforSC: false,
+                usable: true,
+                instantUse: false,
+                useId: 18
+            },
+            "Fries": {
+                price: 5,
+                id: 34,
+                sells: false,
+                sellsfor: 5,
+                sellsforSC: false,
+                usable: true,
+                instantUse: false,
+                useId: 19
+            },
+            "Cheeseburger": {
+                price: 8,
+                id: 35,
+                sells: false,
+                sellsfor: 5,
+                sellsforSC: false,
+                usable: true,
+                instantUse: false,
+                useId: 20
+            },
+            "Soda": {
+                price: 5,
+                id: 36,
+                sells: false,
+                sellsfor: 3,
+                sellsforSC: false,
+                usable: false,
+                instantUse: false
+            }
+        },
+        rareLoot: {
+            title: "Old phone",
+            price: 5,
+            id: 31,
+            rareLootChance: 10,
+            sells: true,
+            sellsforSC: false,
+            sellsfor: 50,
+            usable: false,
+            instantUse: false,
+            useId: 10,
+        },
+        priority: 1
+    }
 };
 
 let exchangeRateSCPer1coin = 10;
@@ -382,7 +439,9 @@ const mathEquasions = ["π = 3.14159265359", "e = 2.71828182846", "2 + 2 = 5", "
 const chessAdvices = ["DA ROOK", "Git gud", "Play more chess!"];
 const politicsAdvices = ["Bro, every country is wrong atm"];
 
-const useFunctionBridge = ["eat('10x Pork')", "goldenHam()", "eatPoison('Expired Bacon')", "eternalOink()", "ffxivActivation()", "PS2MenuActivation()", "PCAdvice()", "artyomCasinoGiftCard()", "mathsStuff('Weathered Maths Notebook', '6 7 Kid')", "mathsStuff('Weathered Maths Notebook', '6 7 Kid')", "bingChilling()", "chessBoardActivation()", "tennisGame()", "chessAdvice()", "smpSummary()", "politicsAdvice()", "PS2Menu()", "gameAdvice()"];
+const useFunctionBridge = ["eat('10x Pork')", "goldenHam()", "eatPoison('Expired Bacon')", "eternalOink()", "ffxivActivation()", "PS2MenuActivation()", "PCAdvice()", "artyomCasinoGiftCard()", "mathsStuff('Weathered Maths Notebook', '6 7 Kid')", "mathsStuff('Weathered Maths Notebook', '6 7 Kid')", "bingChilling()", "chessBoardActivation()", "tennisGame()", "chessAdvice()", "smpSummary()", "politicsAdvice()", "PS2Menu()", "gameAdvice()", "eat('Hamburger')", "eat('Fries')", "eat('Cheeseburger')"];
+
+const version = "Infinite Trade v0.6a";
 
 // Variables
 
@@ -407,15 +466,38 @@ let isEventActive = false;
 let wasEventNotificationViewed = false;
 let goldenHamTimesUsed = 0;
 let cheated = false;
+let wasUpdated = false;
 
 // Saved variables & on DOM load
 
+const buttonl1 = document.getElementById("buttonl1");
+const buttonl2 = document.getElementById("buttonl2");
+const inventoryList = document.getElementById("inventoryList");
 
-let savedVariableList = ["inventory", "coinsAmount", "socialCreditsAmount", "armyActivated", "navyActivated", "currentArmyClassNo", "eternalOinkActivated", "wasEventNotificationViewed", "goldenHamTimesUsed"];
+// let savedVariableList = ["inventory", "coinsAmount", "socialCreditsAmount", "armyActivated", "navyActivated", "currentArmyClassNo", "eternalOinkActivated", "wasEventNotificationViewed", "goldenHamTimesUsed"];
 // let defaultValueList = [[], 10, 0, false, false, 0, false, false, 0];
 
 function loadData() {
-    let loadedInventory = [];
+    let loadedInventory = localStorage.getItem("inventory");
+    if (loadedInventory != null) {
+        console.log(JSON.parse(loadedInventory));
+        inventory = JSON.parse(loadedInventory);
+        if (inventory.length != 0) {
+            buttonl2.style.display = "block";
+            console.log("Inventory data detected");
+            for (let i = 0; i < inventory.length; i++) {
+                let button = document.createElement("button");
+                // traderReward = traderData.lootPool[lootKeys[traderRewardRNG]];
+                button.className = "inventory-button";
+                button.textContent = inventory[i].title;
+                button.id = "inventoryButtonId" + i;
+                inventoryList.append(button);
+                const purchasedItem = inventory[i];
+                const newButton = document.getElementById("inventoryButtonId" + i);
+                newButton.addEventListener("click", () => itemMenu(purchasedItem, newButton));
+            };
+        };
+    };
     let loadedCoinsAmount = localStorage.getItem("coinsAmount");
     if (loadedCoinsAmount == null) {
         isDataMissing = true;
@@ -433,10 +515,12 @@ function loadData() {
     };
 
     let loadedArmyActivated = localStorage.getItem("armyActivated");
-    if (loadedArmyActivated = "1") {
+    if (loadedArmyActivated == "1") {
         armyActivated = true;
+        buttonl1.style.display = "block";
+        
     }
-    else if (loadedArmyActivated = "0") {
+    else if (loadedArmyActivated == "0") {
         armyActivated = false;
     }
     else {
@@ -444,10 +528,20 @@ function loadData() {
     };
 
     let loadedNavyActivated = localStorage.getItem("navyActivated")
-    if (loadedNavyActivated = "1") {
+    if (loadedNavyActivated == "1") {
         navyActivated = true;
+        armyMenu.style.backgroundColor = "#000080";
+        buttonl1.textContent = "Navy menu";
+        armyTitle.textContent = "Navy menu";
+        armyTitleContainer.style.backgroundColor = "#000080";
+        armyTitle.style.backgroundColor = "#000080";
+        armyStoreTitle.textContent = "Navy store";
+        quitArmyButton.textContent = "Exchange 100 coins to leave the Navy"
+        armyInterface.style.color = "#fff";
+        armyStoreTitle.style.color = "#fff";
+        buttonl1.style.display = "inline-block";
     }
-    else if (loadedNavyActivated = "0") {
+    else if (loadedNavyActivated == "0") {
         navyActivated = false;
     }
     else {
@@ -455,7 +549,7 @@ function loadData() {
     };
 
     let loadedCurrentArmyClassNo = localStorage.getItem("currentArmyClassNo");
-    if (loadedCurrentArmyClassNo = null) {
+    if (loadedCurrentArmyClassNo == null) {
         isDataMissing = true;
     }
     else {
@@ -490,6 +584,14 @@ function loadData() {
         goldenHamTimesUsed = Number(loadedGoldenHamTimesUsed);
     }
 
+    let loadedVersion = localStorage.getItem("previousVersion");
+    if (loadedVersion == version) {
+        wasUpdated = false;
+    }
+    else {
+        wasUpdated = true;
+    };
+
     if (isDataMissing == true) {
         console.log("%c Some data was missing or corrupted and had been reset to default values. If you are playing this game for the 1st time or are playing on an experimental/unstable build, please ignore this message", 'color: #ff0000');
     }
@@ -500,12 +602,13 @@ function loadData() {
 
 loadData()
 
-
 console.log("<< Welcome to Infinite trade >>");
 
 
-if (isDataMissing == true) {
+if (isDataMissing == true || wasUpdated == true) {
     console.log("Infinite trade updated");
+    alert("Infinite Trade was updated")
+    wasUpdated = false;
 };
 
 // let inventory = [];
@@ -532,7 +635,6 @@ const priceDisplay = document.getElementById("offer-price");
 const socialCreditDisplay = document.getElementById("socialcredit-display");
 const armyMenu = document.getElementById("armyMenu");
 const armyClassDisplay = document.getElementById("armyClass");
-const inventoryList = document.getElementById("inventoryList");
 const inventoryMenu = document.getElementById("inventoryMenu");
 const armyTitle = document.getElementById("armyTitle");
 const armyStoreTitle = document.querySelector(".armyStoreTitle");
@@ -546,10 +648,18 @@ const itemMenuContainer = document.getElementById("itemMenu");
 const useButton = document.getElementById("useButton");
 const armyClassPurchase = document.getElementById("armyClassPurchase");
 const coinsPurchaseButton = document.getElementById("coinPurchaseButton");
+const dataDeletionMenu = document.getElementById("dataDeletionMenu");
+const dataDeletionButton = document.getElementById("dataDeletionButton");
+const homeButton = document.getElementById("homeButton");
+const settingsMenu = document.getElementById("settings");
+const settingsClose = document.getElementById("settingsClose");
+const openDataDeletionMenuButton = document.getElementById("openDataDeletionMenuButton");
+const versionText = document.getElementById("version");
+const settingsFooter = document.getElementById("settings-footer");
 
 // Declaring buttons
-const buttonl1 = document.getElementById("buttonl1");
-const buttonl2 = document.getElementById("buttonl2");
+// const buttonl1 = document.getElementById("buttonl1");
+// const buttonl2 = document.getElementById("buttonl2");
 const buttonl3 = document.getElementById("buttonl3");
 const buttonl4 = document.getElementById("buttonl4");
 const buttonl5 = document.getElementById("buttonl5");
@@ -578,6 +688,18 @@ const buttonr12 = document.getElementById("buttonr12");
 const buttonr13 = document.getElementById("buttonr13");
 const buttonr14 = document.getElementById("buttonr14");
 const buttonr15 = document.getElementById("buttonr15");
+
+// DOM Load 2
+
+versionText.textContent = version;
+settingsFooter.textContent = version;
+
+if (coinDisplay) {
+    coinDisplay.textContent = "Coins: " + coinsAmount;
+}
+if (socialCreditDisplay) {
+    socialCreditDisplay.textContent = "Social credits: " + socialCreditsAmount;
+}
 
 // Use functions
 
@@ -703,6 +825,8 @@ function saveData() {
     localStorage.setItem("socialCreditsAmount", String(socialCreditsAmount));
     localStorage.setItem("goldenHamTimesUsed", String(goldenHamTimesUsed));
     localStorage.setItem("currentArmyClassNo", String(currentArmyClassNo));
+    localStorage.setItem("inventory", JSON.stringify(inventory));
+    localStorage.setItem("previousVersion", version);
 
     if (armyActivated == true) {
         localStorage.setItem("armyActivated", "1");
@@ -730,20 +854,10 @@ function saveData() {
     }
     else {
         localStorage.setItem("wasEventNotificationViewed", "0");
-    }
-
+    };
 }
 
 saveData()
-
-
-
-
-
-if (inventory.length != 0) {
-    buttonl2.style.display = "block";
-    console.log("inventory data detected");
-}
 
 function cheatCheck() {
     for (i=0; i <= savedVariableList.length; i++) {
@@ -789,14 +903,6 @@ function removeItem(idToRemove) {
     return keptItem;
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-    if (coinDisplay) {
-        coinDisplay.textContent = "Coins: " + coinsAmount;
-    }
-    if (socialCreditDisplay) {
-        socialCreditDisplay.textContent = "Social credits: " + socialCreditsAmount;
-    }
-});
 
 function addSocialCredits(amount) {
     socialCreditsAmount += amount;
@@ -856,6 +962,7 @@ function inventoryCheck() {
         quitArmyButton.textContent = "Exchange 100 coins to leave the Navy"
         armyInterface.style.color = "#fff";
         armyStoreTitle.style.color = "#fff";
+        buttonl1.style.display = "inline-block";
     }
     if (hasItem(15)) {
         armyMenu.style.backgroundColor = "#4B5320";
@@ -867,10 +974,11 @@ function inventoryCheck() {
         quitArmyButton.textContent = "Exchange 100 coins to leave the Army";
         armyInterface.style.color = "#000";
         armyStoreTitle.style.color = "#000";
+        buttonl1.style.display = "inline-block";
     }
     if (hasItem(10)) {
         let RNGTemp = Math.floor(Math.random() * 2);
-        console.log(RNGTemp);
+        // console.log(RNGTemp);
         if (RNGTemp == 1) {
             // alert("6 social credits");
             socialCreditsAmount += 6;
@@ -917,9 +1025,13 @@ function inventoryCheck() {
     }
 };
 
+// let traderTitle;
+// let trader;
+
 function tradeText() {
     let trader = Math.floor(Math.random() * (Object.keys(traders).length));
     let traderTitle = (Object.keys(traders)[trader]);
+    // console.log("Current trader [DEBUG]" + traderTitle);
     let traderData = traders[traderTitle];
     // console.log(traderData.priority + traderTitle)
     if (traderData.priority != 1) {
@@ -935,6 +1047,8 @@ function tradeText() {
     }
     else {
         let lootKeys = Object.keys(traders[traderTitle].lootPool);
+        // console.log(lootKeys)
+        // console.log(traderTitle)
         traderRewardRNG = Math.floor(Math.random() * lootKeys.length);
         traderReward = traderData.lootPool[lootKeys[traderRewardRNG]];
     };
@@ -959,7 +1073,7 @@ function tradeText() {
             priceDisplay.textContent = traderReward.priceSC + " social credits";
         }
         else {
-        priceDisplay.textContent = traderReward.price + " coin(s)";
+            priceDisplay.textContent = traderReward.price + " coin(s)";
         };
     };
     
@@ -974,7 +1088,7 @@ function tradeAppear() {
 
 function tradeClose(decision) {
     if ((armyActivated == true || navyActivated == true) && (armyClass == armyClasses[0] || armyClass == armyClasses[1] || armyClass == armyClasses[2] || armyClass == armyClasses[3] || armyClass == armyClasses[4])) {
-        console.log(armyActivated + ", " + navyActivated)
+        // console.log(armyActivated + ", " + navyActivated)
         alert("How dare you cheat on national services?? This removes all your social credits!!");
         socialCreditsAmount = -666;
         coinsAmount = 0;
@@ -1003,8 +1117,8 @@ function tradeClose(decision) {
             // console.log(coinsAmount);
             coinDisplay.textContent = "Coins: " + String(coinsAmount);
             inventory.push(traderReward);
-            console.log(traderReward);
-            console.log(inventory);
+            // console.log(traderReward);
+            // console.log(inventory);
             localStorage.setItem("inventory", inventory);
             localStorage.setItem("coinsAmount", coinsAmount);
             localStorage.setItem("socialCreditsAmount", socialCreditsAmount);
@@ -1014,6 +1128,12 @@ function tradeClose(decision) {
     }
     saveData();
 };
+
+function closePopups() {
+    armyMenu.style.display = "none";
+    inventoryMenu.style.display = "none";
+    settingsMenu.style.display = "none";
+}
 
 function armyMenuOpening() {
     if (isEventActive == "War") {
@@ -1105,13 +1225,13 @@ function quitArmy() {
         navyActivated = false;
         armyOpen = false;
         if (hasItem(15)) {
-            console.log(getItem(15))
-            console.log(removeItem(15))
+            // console.log(getItem(15))
+            // console.log(removeItem(15))
             inventory = removeItem(15);
         }
         if (hasItem(14)) {
-            console.log(getItem(14))
-            console.log(removeItem(14))
+            // console.log(getItem(14))
+            // console.log(removeItem(14))
             inventory = removeItem(14);
         }
         armyMenu.style.display = "none";
@@ -1138,10 +1258,10 @@ function purchaseCoins(amount) {
 
 function inventoryOpening() {
     if (inventoryOpen == false) {
-    armyOpen = false;
-    armyMenu.style.display = "none";
-    inventoryMenu.style.display = "flex";
-    inventoryOpen = true;
+        armyOpen = false;
+        armyMenu.style.display = "none";
+        inventoryMenu.style.display = "flex";
+        inventoryOpen = true;
     }
     else {
         inventoryMenu.style.display = "none";
@@ -1180,8 +1300,8 @@ function buyNewRank() {
 }
 
 function sellItem() {
-    console.log(selectedItem);
-    console.log(selectedItem.sellsfor);
+    // console.log(selectedItem);
+    // console.log(selectedItem.sellsfor);
     if (selectedItem.id == 4) {
         eternalOinkActivated = false;
     }
@@ -1230,7 +1350,7 @@ function closeItemMenu() {
 }
 
 function useItem() {
-    console.log(selectedItem);
+    // console.log(selectedItem);
     if (selectedItem.instantUse == true) {
         useAttempts += 1;
         if (useAttempts == 1) {
@@ -1246,7 +1366,7 @@ function useItem() {
     else if (selectedItem.usable == true) {
         // alert("Item is usable, but the use is... Coming soon! Stay tuned! Debug: Clicked item: " + item.title);
         let functionExecute = useFunctionBridge[selectedItem.useId];
-        console.log(functionExecute);
+        // console.log(functionExecute);
         eval(functionExecute);
         itemMenuContainer.style.display = "none";
         if (selectedItem.useId != 3) {
@@ -1261,12 +1381,12 @@ function useItem() {
 }
 
 function itemMenu(item, target) {
-    console.log(item);
+    // console.log(item);
     useAttempts = 0;
-    console.log(item);
+    // console.log(item);
     selectedItem = item;
     selectedTarget = target;
-    console.log(selectedItem);
+    // console.log(selectedItem);
     itemMenuTitle.textContent = "Are you sure you'd like to sell " + item.title + " for " + item.sellsfor + " coins?";
     sellButton.addEventListener("click", sellItem);
     useButton.addEventListener("click", useItem);
@@ -1278,9 +1398,34 @@ function ffxivMenu() {
     console.log("FFXIV Menu clicked!");
 };
 
+function settingsOpen(show) {
+    closePopups();
+    if (show == true) {
+        settingsMenu.style.display = "block";
+    }
+};
+
+buttonl15.addEventListener("click", () => { settingsOpen(true) });
+settingsClose.addEventListener("click", () => { settingsOpen(false) });
+openDataDeletionMenuButton.addEventListener("click", () => { dataDeletionMenu.style.display = "flex" });
+
+function dataDeletion(answer) {
+    if (answer == true) {
+        localStorage.clear();
+        console.log("Data deleted");
+        alert("Data deleted");
+        location.reload()
+    };
+
+    dataDeletionMenu.style.display = "none";    
+};
+
+dataDeletionButton.addEventListener("click", () => { dataDeletion(true) } );
+homeButton.addEventListener("click", () => { dataDeletion(false) } );
+
 function war() {
     let time = new Date();
-    let endTime = new Date(2026, 6, 25, 0, 0, 0, 0);
+    let endTime = new Date(2026, 8, 18, 0, 0, 0, 0);
     let timeUntilEnd = endTime - time;
     let displayTimeUntilEnd = timeUntilEnd;
     let displayTimeUntilEndMeasurement = "ms";
@@ -1306,19 +1451,27 @@ function war() {
         isEventActive = false;
         coinsPurchaseButton.textContent = "Exchange 10 social credits for 1 coin";
         exchangeRateSCPer1coin = 10;
-        console.log("The war event has concluded. We thank you for your participation");
+        console.log("<< The war event has concluded. >> We thank you for your participation");
+        wasEventNotificationViewed = false;
+        saveData();
         alert("War had ended");
     }
     else if (timeUntilEnd > 0) {
-        console.log("**War event is currently running** and will end in " + displayTimeUntilEnd + displayTimeUntilEndMeasurement + ", at " + endTime)
+        console.log("<< War event is currently running >> and will end in " + displayTimeUntilEnd + displayTimeUntilEndMeasurement + ", at " + endTime)
         
         coinsPurchaseButton.textContent = "Exchange 100 social credits for 1 coin";
-        wasEventNotificationViewed = true;
-        isEventActive = "War";
         exchangeRateSCPer1coin *= 10;
-        alert("WAR HAS STARTED!!");
-        setTimeout(function () { war(); }, timeUntilEnd);
+        if (wasEventNotificationViewed == false) {
+            wasEventNotificationViewed = true;
+            saveData();
+            isEventActive = "War";
+            alert("WAR HAS STARTED!!");
+            setTimeout(function () { war(); }, timeUntilEnd);
+        }
     }
 }
 
 war()
+
+
+// six seveeeeeen
