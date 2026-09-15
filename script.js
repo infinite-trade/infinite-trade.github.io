@@ -410,8 +410,6 @@ let cheated = false;
 
 // Saved variables & on DOM load
 
-localStorage.clear()
-
 
 let savedVariableList = ["inventory", "coinsAmount", "socialCreditsAmount", "armyActivated", "navyActivated", "currentArmyClassNo", "eternalOinkActivated", "wasEventNotificationViewed", "goldenHamTimesUsed"];
 // let defaultValueList = [[], 10, 0, false, false, 0, false, false, 0];
