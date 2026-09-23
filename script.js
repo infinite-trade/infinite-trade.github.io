@@ -426,6 +426,7 @@ const traders = {
         },
         priority: 1
     }
+    // "Electronics store salesman"
 };
 
 let exchangeRateSCPer1coin = 10;
@@ -441,7 +442,7 @@ const politicsAdvices = ["Bro, every country is wrong atm"];
 
 const useFunctionBridge = ["eat('10x Pork')", "goldenHam()", "eatPoison('Expired Bacon')", "eternalOink()", "ffxivActivation()", "PS2MenuActivation()", "PCAdvice()", "artyomCasinoGiftCard()", "mathsStuff('Weathered Maths Notebook', '6 7 Kid')", "mathsStuff('Weathered Maths Notebook', '6 7 Kid')", "bingChilling()", "chessBoardActivation()", "tennisGame()", "chessAdvice()", "smpSummary()", "politicsAdvice()", "PS2Menu()", "gameAdvice()", "eat('Hamburger')", "eat('Fries')", "eat('Cheeseburger')"];
 
-const version = "Infinite Trade v0.6a";
+const version = "Infinite Trade alpha v0.6.1α";
 
 // Variables
 

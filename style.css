@@ -416,3 +416,8 @@ body {
 .settings-footer {
     margin-top: 25px;
 }
+
+.alpha-subtitle {
+    position: relative;
+    padding-top: 500px;
+}
