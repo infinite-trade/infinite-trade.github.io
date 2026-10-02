@@ -99,6 +99,10 @@ body {
     bottom: 0;
 }
 
+#version {
+    margin-left: 65px;
+}
+
 .main {
     background-color: #eee;
     height: 100%;
@@ -418,6 +422,7 @@ body {
 }
 
 .alpha-subtitle {
-    position: relative;
-    padding-top: 500px;
+    text-align: center;
+    margin-left: 15%;
+    margin-top: 10px;
 }
