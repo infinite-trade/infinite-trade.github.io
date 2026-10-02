@@ -425,4 +425,14 @@ body {
     text-align: center;
     margin-left: 15%;
     margin-top: 10px;
+    font-style: italic;
+}
+
+.alpha-character {
+    font-family: 'Times New Roman', Times, serif;
+}
+
+.UI-left-column {
+    padding-bottom: 15px;
+    z-index: 20;
 }
