@@ -405,11 +405,12 @@ const traders = {
             "Soda": {
                 price: 5,
                 id: 36,
-                sells: false,
-                sellsfor: 3,
+                sells: true,
+                sellsfor: 5,
                 sellsforSC: false,
-                usable: false,
-                instantUse: false
+                usable: true,
+                instantUse: false,
+                useId: 21
             }
         },
         rareLoot: {
@@ -425,6 +426,35 @@ const traders = {
             useId: 10,
         },
         priority: 1
+    },
+    "Official storefront": {
+        subtitle: "If you're seeing this, you're really lucky as the chance to see this is incredibly rare. If you got it without cheating, buy a lottery ticket NOW",
+        lootPool: {
+            "2x Money multiplier": {
+                price: 300,
+                id: 36,
+                sells: false,
+                sellsforSC: false,
+                sellsfor: 300,
+                usable: true,
+                instantUse: false,
+                useId: 22,
+            },
+        },
+        rareloot: {
+            title: "Easter egg (if you're seeing this, know that you are an incredibly lucky man. The chance to get it is next to impossible",
+            price: 6767,
+            id: 67,
+            rareLootChance: 999,
+            sells: true,
+            sellsforSC: false,
+            sellsfor: 999999,
+            usable: true,
+            instantUse: false,
+            useId: 1,
+        },
+        priority: 69
+        // nice
     }
     // "Electronics store salesman"
 };
@@ -440,9 +470,9 @@ const mathEquasions = ["π = 3.14159265359", "e = 2.71828182846", "2 + 2 = 5", "
 const chessAdvices = ["DA ROOK", "Git gud", "Play more chess!"];
 const politicsAdvices = ["Bro, every country is wrong atm"];
 
-const useFunctionBridge = ["eat('10x Pork')", "goldenHam()", "eatPoison('Expired Bacon')", "eternalOink()", "ffxivActivation()", "PS2MenuActivation()", "PCAdvice()", "artyomCasinoGiftCard()", "mathsStuff('Weathered Maths Notebook', '6 7 Kid')", "mathsStuff('Weathered Maths Notebook', '6 7 Kid')", "bingChilling()", "chessBoardActivation()", "tennisGame()", "chessAdvice()", "smpSummary()", "politicsAdvice()", "PS2Menu()", "gameAdvice()", "eat('Hamburger')", "eat('Fries')", "eat('Cheeseburger')"];
+const useFunctionBridge = ["consume('10x Pork', 'eat')", "goldenHam()", "eatPoison('Expired Bacon')", "eternalOink()", "ffxivActivation()", "PS2MenuActivation()", "PCAdvice()", "artyomCasinoGiftCard()", "mathsStuff('Weathered Maths Notebook', '6 7 Kid')", "mathsStuff('Weathered Maths Notebook', '6 7 Kid')", "bingChilling()", "chessBoardActivation()", "tennisGame()", "chessAdvice()", "smpSummary()", "politicsAdvice()", "PS2Menu()", "gameAdvice()", "consume('Hamburger', 'eat')", "consume('Fries', 'eat')", "consume('Cheeseburger', 'eat')", "consume('Soda', 'drink')", "multiplyCoins(2)"];
 
-const version = "Infinite Trade alpha v0.6.3α";
+const version = "Infinite Trade alpha v0.7α";
 
 // Variables
 
@@ -454,8 +484,11 @@ let socialCreditsAmount = 0;
 let traderRewardRNG;
 let armyActivated = false;
 let navyActivated = false;
+
 let armyOpen = false;
 let inventoryOpen = false;
+let storeOpen = false;
+
 let armyClass = armyClasses[0];
 let currentArmyClassNo = 0;
 let armyButtonClicked = 0;
@@ -657,6 +690,9 @@ const settingsClose = document.getElementById("settingsClose");
 const openDataDeletionMenuButton = document.getElementById("openDataDeletionMenuButton");
 const versionText = document.getElementById("version");
 const settingsFooter = document.getElementById("settings-footer");
+const storeMenu = document.getElementById("storeMenu");
+const storeCloseButton = document.getElementById("storeCloseButton");
+const moneyMultiplierx2PurchaseButton = document.getElementById("2xMoneyMultiplierButton");
 
 // Declaring buttons
 // const buttonl1 = document.getElementById("buttonl1");
@@ -704,8 +740,8 @@ if (socialCreditDisplay) {
 
 // Use functions
 
-function eat(food) {
-    alert("You eat " + food + " giving you just enough energy to earn 10 coins");
+function consume(food, method) {
+    alert("You " + method + " " + food + ", giving you just enough energy to earn 10 coins");
     coinsAmount += 10;
     coinDisplay.textContent = "Coins: " + coinsAmount;
 };
@@ -756,7 +792,7 @@ function mathsStuff(subject, source) {
 function bingChilling() {
     socialCreditsAmount += 9999999999999999;
     socialCreditDisplay.textContent = "Social credits: " + socialCreditsAmount;
-    alert("You Eat Bing Chilling, and become a higher level specie. Infinite social credits achieved. 成功率：100%。你現在對政府來說立於不敗之地，因為你的社會信用比偉大的習近平還要高。");
+    alert("You Eat Bing Chilling, and become a higher level specie. Infinite social credits achieved. 成功率:100%。你現在對政府來說立於不敗之地，因為你的社會信用比偉大的習近平還要高。");
     new Audio('Media/bing-chilling.mp3').play();
     setTimeout("new Audio('Media/taco-bell-bong-sfx.mp3').play()", 2000);
 };
@@ -815,6 +851,12 @@ function goldenHam() {
 
 function gameAdvice() {
     alert("Basically, use logic, buy items with care, and don't forget to NOT buy dumb items or there might be consequences. Thank you for playing btw");
+};
+
+function multiplyCoins(amount) {
+    coinsAmount = coinsAmount*amount;
+    saveData()
+    coinDisplay.textContent = "Coins: " + coinsAmount;
 };
 
 // Main script
@@ -889,8 +931,10 @@ function getItem(idToFind) {
     for (let i = 0; i < inventory.length && found == false; i++) {
         if (inventory[i].id == idToFind) {
             found = true;
+            console.log(i);
             return i;
         }
+        console.log(found);
     } 
 };
 
@@ -1019,7 +1063,7 @@ function inventoryCheck() {
     };
 
     if (hasItem(21) || hasItem(20) || hasItem(17)) {
-        socialCreditsAmount -= 2000;
+        socialCreditsAmount -= 200;
         coinsAmount = -10;
         socialCreditDisplay.textContent = "Social credits: " + socialCreditsAmount;
         coinDisplay.textContent = "Coins: " + coinsAmount;
@@ -1091,7 +1135,7 @@ function tradeClose(decision) {
     if ((armyActivated == true || navyActivated == true) && (armyClass == armyClasses[0] || armyClass == armyClasses[1] || armyClass == armyClasses[2] || armyClass == armyClasses[3] || armyClass == armyClasses[4])) {
         // console.log(armyActivated + ", " + navyActivated)
         alert("How dare you cheat on national services?? This removes all your social credits!!");
-        socialCreditsAmount = -666;
+        socialCreditsAmount = 0;
         coinsAmount = 0;
         coinDisplay.textContent = "Coins: " + coinsAmount;
         socialCreditDisplay.textContent = "Social credits: " + socialCreditsAmount;
@@ -1134,6 +1178,11 @@ function closePopups() {
     armyMenu.style.display = "none";
     inventoryMenu.style.display = "none";
     settingsMenu.style.display = "none";
+    storeMenu.style.display = "none";
+
+    armyOpen = false;
+    inventoryOpen = false;
+    storeOpen = false;
 }
 
 function armyMenuOpening() {
@@ -1145,6 +1194,8 @@ function armyMenuOpening() {
     }
     inventoryOpen = false;
     inventoryMenu.style.display = "none";
+    storeOpen = false;
+    storeMenu.style.display = "none";
     if (armyActivated == true && armyOpen == false) {
         armyMenu.style.display = "flex";
         armyOpen = true;
@@ -1263,12 +1314,33 @@ function inventoryOpening() {
         armyMenu.style.display = "none";
         inventoryMenu.style.display = "flex";
         inventoryOpen = true;
+        storeMenu.style.display = "none";
+        storeOpen = false;
     }
     else {
         inventoryMenu.style.display = "none";
         inventoryOpen = false;
     }
 }
+
+function storeOpening() {
+    if (storeOpen == false) {
+        armyOpen = false;
+        armyMenu.style.display = "none";
+        inventoryMenu.style.display = "none";
+        inventoryOpen = false;
+        storeMenu.style.display = "flex";
+        storeOpen = true;
+    }
+    else {
+        storeMenu.style.display = "none";
+        storeOpen = false;
+    }
+}
+
+buttonl3.addEventListener("click", storeOpening);
+storeCloseButton.addEventListener("click", storeOpening);
+
 
 function buyNewRank() {
     if (armyClass == armyClasses[armyClasses.length-1]) {
@@ -1424,12 +1496,56 @@ function dataDeletion(answer) {
 dataDeletionButton.addEventListener("click", () => { dataDeletion(true) } );
 homeButton.addEventListener("click", () => { dataDeletion(false) } );
 
+function storefrontPurchase(bId) {
+    if (bId == 1) {
+        var purchasedItem = traders["Official storefront"].lootPool["2x Money multiplier"];
+        var purchasedItemName = "2x Money Multiplier";
+    }
+    else {
+        console.error("Bad purchase id");
+    }
+    if (purchasedItem.price <= coinsAmount) {
+        purchasedItem.title = purchasedItemName;
+        buttonl2.style.display = "inline-block";
+
+        let button = document.createElement("button");
+        button.className = "inventory-button";
+        button.textContent = purchasedItemName;
+        button.id = "inventoryButtonId" + inventory.length;
+        inventoryList.append(button);
+        const newButton = document.getElementById("inventoryButtonId" + inventory.length);
+        newButton.addEventListener("click", () => itemMenu(purchasedItem, newButton));
+
+        coinsAmount -= purchasedItem.price;
+        if (purchasedItem.priceSC > 0) {
+            socialCreditsAmount -= purchasedItem.priceSC;
+            socialCreditDisplay.textContent = "Social credits: " + socialCreditsAmount;
+        };
+        // console.log(coinsAmount);
+        coinDisplay.textContent = "Coins: " + String(coinsAmount);
+        inventory.push(purchasedItem);
+        // console.log(traderReward);
+        // console.log(inventory);
+        saveData();
+        // console.log(localStorage.getItem(JSON.parse(inventory)));
+        inventoryCheck();
+        }
+    else {
+        alert("Insufficient funds")
+    }
+};
+
+moneyMultiplierx2PurchaseButton.addEventListener("click", () => { storefrontPurchase(1) });
+
+// Should I start adding comments?
+
 function war() {
     let time = new Date();
-    let endTime = new Date(2026, 8, 18, 0, 0, 0, 0);
+    let endTime = new Date(2026, 10, 1, 0, 0, 0, 0);
     let timeUntilEnd = endTime - time;
     let displayTimeUntilEnd = timeUntilEnd;
     let displayTimeUntilEndMeasurement = "ms";
+    document.body.style.backgroundColor = "#000"
 
     if (timeUntilEnd >= 1000) {
         displayTimeUntilEnd /= 1000;
@@ -1450,6 +1566,7 @@ function war() {
 
     if (timeUntilEnd < 0 && timeUntilEnd > -5000 || timeUntilEnd < 0 && wasEventNotificationViewed == true) {
         isEventActive = false;
+        // document.body.style.backgroundColor = "#eee";
         coinsPurchaseButton.textContent = "Exchange 10 social credits for 1 coin";
         exchangeRateSCPer1coin = 10;
         console.log("<< The war event has concluded. >> We thank you for your participation");
@@ -1458,7 +1575,7 @@ function war() {
         alert("War had ended");
     }
     else if (timeUntilEnd > 0) {
-        console.log("<< War event is currently running >> and will end in " + displayTimeUntilEnd + displayTimeUntilEndMeasurement + ", at " + endTime)
+        console.log("<< War event is currently running >> and will end in " + displayTimeUntilEnd + displayTimeUntilEndMeasurement + ", at " + endTime);
         
         coinsPurchaseButton.textContent = "Exchange 100 social credits for 1 coin";
         exchangeRateSCPer1coin *= 10;
