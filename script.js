@@ -1565,7 +1565,7 @@ winPurchaseButton.addEventListener("click", () => { storefrontPurchase(67) });
 
 function war() {
     let time = new Date();
-    let endTime = new Date(2026, 10, 1, 0, 0, 0, 0);
+    let endTime = new Date(2026, 10, 5, 0, 0, 0, 0);
     let timeUntilEnd = endTime - time;
     let displayTimeUntilEnd = timeUntilEnd;
     let displayTimeUntilEndMeasurement = "ms";
