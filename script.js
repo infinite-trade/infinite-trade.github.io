@@ -440,6 +440,17 @@ const traders = {
                 instantUse: false,
                 useId: 22,
             },
+            "Win": {
+                price: 50000,
+                priceSC: 500000,
+                id: 37,
+                sells: false,
+                sellsforSC: false,
+                sellsfor: 0,
+                usable: true,
+                instantUse: false,
+                useId: 23,
+            },
         },
         rareloot: {
             title: "Easter egg (if you're seeing this, know that you are an incredibly lucky man. The chance to get it is next to impossible",
@@ -470,9 +481,9 @@ const mathEquasions = ["π = 3.14159265359", "e = 2.71828182846", "2 + 2 = 5", "
 const chessAdvices = ["DA ROOK", "Git gud", "Play more chess!"];
 const politicsAdvices = ["Bro, every country is wrong atm"];
 
-const useFunctionBridge = ["consume('10x Pork', 'eat')", "goldenHam()", "eatPoison('Expired Bacon')", "eternalOink()", "ffxivActivation()", "PS2MenuActivation()", "PCAdvice()", "artyomCasinoGiftCard()", "mathsStuff('Weathered Maths Notebook', '6 7 Kid')", "mathsStuff('Weathered Maths Notebook', '6 7 Kid')", "bingChilling()", "chessBoardActivation()", "tennisGame()", "chessAdvice()", "smpSummary()", "politicsAdvice()", "PS2Menu()", "gameAdvice()", "consume('Hamburger', 'eat')", "consume('Fries', 'eat')", "consume('Cheeseburger', 'eat')", "consume('Soda', 'drink')", "multiplyCoins(2)"];
+const useFunctionBridge = ["consume('10x Pork', 'eat')", "goldenHam()", "eatPoison('Expired Bacon')", "eternalOink()", "ffxivActivation()", "PS2MenuActivation()", "PCAdvice()", "artyomCasinoGiftCard()", "mathsStuff('Weathered Maths Notebook', '6 7 Kid')", "mathsStuff('Weathered Maths Notebook', '6 7 Kid')", "bingChilling()", "chessBoardActivation()", "tennisGame()", "chessAdvice()", "smpSummary()", "politicsAdvice()", "PS2Menu()", "gameAdvice()", "consume('Hamburger', 'eat')", "consume('Fries', 'eat')", "consume('Cheeseburger', 'eat')", "consume('Soda', 'drink')", "multiplyCoins(2)", "win()"];
 
-const version = "Infinite Trade alpha v0.7α";
+const version = "Infinite Trade alpha v0.7.1α";
 
 // Variables
 
@@ -693,6 +704,8 @@ const settingsFooter = document.getElementById("settings-footer");
 const storeMenu = document.getElementById("storeMenu");
 const storeCloseButton = document.getElementById("storeCloseButton");
 const moneyMultiplierx2PurchaseButton = document.getElementById("2xMoneyMultiplierButton");
+const gameTitle = document.querySelector(".header-title");
+const winPurchaseButton = document.getElementById("winPurchaseButton");
 
 // Declaring buttons
 // const buttonl1 = document.getElementById("buttonl1");
@@ -857,6 +870,12 @@ function multiplyCoins(amount) {
     coinsAmount = coinsAmount*amount;
     saveData()
     coinDisplay.textContent = "Coins: " + coinsAmount;
+};
+
+function win() {
+    alert("Stage 1 completed. Redirecting to stage 2...");
+    multiplyCoins(67);
+    gameTitle.textContent = "Infinite Trade 2";
 };
 
 // Main script
@@ -1501,6 +1520,10 @@ function storefrontPurchase(bId) {
         var purchasedItem = traders["Official storefront"].lootPool["2x Money multiplier"];
         var purchasedItemName = "2x Money Multiplier";
     }
+    else if (bId == 67) {
+        var purchasedItem = traders["Official storefront"].lootPool["Win"];
+        var purchasedItemName = "Win";
+    }
     else {
         console.error("Bad purchase id");
     }
@@ -1536,6 +1559,7 @@ function storefrontPurchase(bId) {
 };
 
 moneyMultiplierx2PurchaseButton.addEventListener("click", () => { storefrontPurchase(1) });
+winPurchaseButton.addEventListener("click", () => { storefrontPurchase(67) });
 
 // Should I start adding comments?
 
