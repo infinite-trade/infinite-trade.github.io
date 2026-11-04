@@ -493,7 +493,7 @@ const politicsAdvices = ["Bro, every country is wrong atm"];
 
 const useFunctionBridge = ["consume('10x Pork', 'eat')", "goldenHam()", "eatPoison('Expired Bacon')", "eternalOink()", "ffxivActivation()", "PS2MenuActivation()", "PCAdvice()", "artyomCasinoGiftCard()", "mathsStuff('Weathered Maths Notebook', '6 7 Kid')", "mathsStuff('Weathered Maths Notebook', '6 7 Kid')", "bingChilling()", "chessBoardActivation()", "tennisGame()", "chessAdvice()", "smpSummary()", "politicsAdvice()", "PS2Menu()", "gameAdvice()", "consume('Hamburger', 'eat')", "consume('Fries', 'eat')", "consume('Cheeseburger', 'eat')", "consume('Soda', 'drink')", "doubleCoins()", "win()"];
 
-const version = "Infinite Trade alpha v0.7.2α";
+const version = "Infinite Trade alpha v0.7.3α";
 
 // Variables
 
@@ -540,6 +540,8 @@ const armyHelp = document.querySelector(".armyHelp");
 
 // let savedVariableList = ["inventory", "coinsAmount", "socialCreditsAmount", "armyActivated", "navyActivated", "currentArmyClassNo", "eternalOinkActivated", "wasEventNotificationViewed", "goldenHamTimesUsed"];
 // let defaultValueList = [[], 10, 0, false, false, 0, false, false, 0];
+
+console.log(localStorage);
 
 function loadData() {
     let loadedInventory = localStorage.getItem("inventory");
@@ -649,7 +651,7 @@ function loadData() {
     }
 
     let loadedTimes2xmultiplierused = localStorage.getItem("times2xmultiplierused");
-    if (loadedTimes2xmultiplierused == null || NaN(Number(loadedTimes2xmultiplierused))) {
+    if (loadedTimes2xmultiplierused == null) {
         isDataMissing = true;
     }
     else {
@@ -911,7 +913,9 @@ function saveData() {
     localStorage.setItem("coinsAmount", String(coinsAmount));
     localStorage.setItem("socialCreditsAmount", String(socialCreditsAmount));
     localStorage.setItem("goldenHamTimesUsed", String(goldenHamTimesUsed));
-    localStorage.setItem("times2xMultiplierUsed", String(times2xmultiplierused));
+    localStorage.setItem("times2xmultiplierused", String(times2xmultiplierused));
+    console.log(localStorage.getItem("times2xmultiplierused"));
+    console.log(String(times2xmultiplierused));
     localStorage.setItem("currentArmyClassNo", String(currentArmyClassNo));
     localStorage.setItem("inventory", JSON.stringify(inventory));
     localStorage.setItem("previousVersion", version);
