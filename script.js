@@ -440,9 +440,19 @@ const traders = {
                 instantUse: false,
                 useId: 22,
             },
+            "Free Money button": {
+                price: 999,
+                id: 38,
+                sells: false,
+                sellsforSC: false,
+                sellsfor: 10,
+                usable: true,
+                instantUse: false,
+                useId: 24,
+            },
             "Win": {
-                price: 50000,
-                priceSC: 500000,
+                price: 5000000,
+                priceSC: 50000000,
                 id: 37,
                 sells: false,
                 sellsforSC: false,
@@ -481,9 +491,9 @@ const mathEquasions = ["π = 3.14159265359", "e = 2.71828182846", "2 + 2 = 5", "
 const chessAdvices = ["DA ROOK", "Git gud", "Play more chess!"];
 const politicsAdvices = ["Bro, every country is wrong atm"];
 
-const useFunctionBridge = ["consume('10x Pork', 'eat')", "goldenHam()", "eatPoison('Expired Bacon')", "eternalOink()", "ffxivActivation()", "PS2MenuActivation()", "PCAdvice()", "artyomCasinoGiftCard()", "mathsStuff('Weathered Maths Notebook', '6 7 Kid')", "mathsStuff('Weathered Maths Notebook', '6 7 Kid')", "bingChilling()", "chessBoardActivation()", "tennisGame()", "chessAdvice()", "smpSummary()", "politicsAdvice()", "PS2Menu()", "gameAdvice()", "consume('Hamburger', 'eat')", "consume('Fries', 'eat')", "consume('Cheeseburger', 'eat')", "consume('Soda', 'drink')", "multiplyCoins(2)", "win()"];
+const useFunctionBridge = ["consume('10x Pork', 'eat')", "goldenHam()", "eatPoison('Expired Bacon')", "eternalOink()", "ffxivActivation()", "PS2MenuActivation()", "PCAdvice()", "artyomCasinoGiftCard()", "mathsStuff('Weathered Maths Notebook', '6 7 Kid')", "mathsStuff('Weathered Maths Notebook', '6 7 Kid')", "bingChilling()", "chessBoardActivation()", "tennisGame()", "chessAdvice()", "smpSummary()", "politicsAdvice()", "PS2Menu()", "gameAdvice()", "consume('Hamburger', 'eat')", "consume('Fries', 'eat')", "consume('Cheeseburger', 'eat')", "consume('Soda', 'drink')", "doubleCoins()", "win()"];
 
-const version = "Infinite Trade alpha v0.7.1α";
+const version = "Infinite Trade alpha v0.7.2α";
 
 // Variables
 
@@ -512,6 +522,7 @@ let wasEventNotificationViewed = false;
 let goldenHamTimesUsed = 0;
 let cheated = false;
 let wasUpdated = false;
+let times2xmultiplierused = 0.5;
 
 // Saved variables & on DOM load
 
@@ -635,6 +646,14 @@ function loadData() {
     }
     else {
         goldenHamTimesUsed = Number(loadedGoldenHamTimesUsed);
+    }
+
+    let loadedTimes2xmultiplierused = localStorage.getItem("times2xmultiplierused");
+    if (loadedTimes2xmultiplierused == null || NaN(Number(loadedTimes2xmultiplierused))) {
+        isDataMissing = true;
+    }
+    else {
+        times2xmultiplierused = Number(loadedTimes2xmultiplierused);
     }
 
     let loadedVersion = localStorage.getItem("previousVersion");
@@ -866,15 +885,21 @@ function gameAdvice() {
     alert("Basically, use logic, buy items with care, and don't forget to NOT buy dumb items or there might be consequences. Thank you for playing btw");
 };
 
+function doubleCoins() {
+    times2xmultiplierused += 0.3;
+    console.log("Variable = " + times2xmultiplierused + " Multiplier = " + 2/times2xmultiplierused);
+    multiplyCoins(2 / times2xmultiplierused);
+}
+
 function multiplyCoins(amount) {
-    coinsAmount = coinsAmount*amount;
+    coinsAmount = Math.floor(coinsAmount*amount);
     saveData()
     coinDisplay.textContent = "Coins: " + coinsAmount;
 };
 
 function win() {
     alert("Stage 1 completed. Redirecting to stage 2...");
-    multiplyCoins(67);
+    multiplyCoins(10);
     gameTitle.textContent = "Infinite Trade 2";
 };
 
@@ -886,6 +911,7 @@ function saveData() {
     localStorage.setItem("coinsAmount", String(coinsAmount));
     localStorage.setItem("socialCreditsAmount", String(socialCreditsAmount));
     localStorage.setItem("goldenHamTimesUsed", String(goldenHamTimesUsed));
+    localStorage.setItem("times2xMultiplierUsed", String(times2xmultiplierused));
     localStorage.setItem("currentArmyClassNo", String(currentArmyClassNo));
     localStorage.setItem("inventory", JSON.stringify(inventory));
     localStorage.setItem("previousVersion", version);
@@ -1565,7 +1591,7 @@ winPurchaseButton.addEventListener("click", () => { storefrontPurchase(67) });
 
 function war() {
     let time = new Date();
-    let endTime = new Date(2026, 10, 5, 0, 0, 0, 0);
+    let endTime = new Date(2026, 10, 7, 0, 0, 0, 0);
     let timeUntilEnd = endTime - time;
     let displayTimeUntilEnd = timeUntilEnd;
     let displayTimeUntilEndMeasurement = "ms";
