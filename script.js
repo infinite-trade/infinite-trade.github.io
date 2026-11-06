@@ -441,7 +441,7 @@ const traders = {
                 useId: 22,
             },
             "Free Money button": {
-                price: 999,
+                price: 1500,
                 id: 38,
                 sells: false,
                 sellsforSC: false,
@@ -491,9 +491,9 @@ const mathEquasions = ["π = 3.14159265359", "e = 2.71828182846", "2 + 2 = 5", "
 const chessAdvices = ["DA ROOK", "Git gud", "Play more chess!"];
 const politicsAdvices = ["Bro, every country is wrong atm"];
 
-const useFunctionBridge = ["consume('10x Pork', 'eat')", "goldenHam()", "eatPoison('Expired Bacon')", "eternalOink()", "ffxivActivation()", "PS2MenuActivation()", "PCAdvice()", "artyomCasinoGiftCard()", "mathsStuff('Weathered Maths Notebook', '6 7 Kid')", "mathsStuff('Weathered Maths Notebook', '6 7 Kid')", "bingChilling()", "chessBoardActivation()", "tennisGame()", "chessAdvice()", "smpSummary()", "politicsAdvice()", "PS2Menu()", "gameAdvice()", "consume('Hamburger', 'eat')", "consume('Fries', 'eat')", "consume('Cheeseburger', 'eat')", "consume('Soda', 'drink')", "doubleCoins()", "win()"];
+const useFunctionBridge = ["consume('10x Pork', 'eat')", "goldenHam()", "eatPoison('Expired Bacon')", "eternalOink()", "ffxivActivation()", "PS2MenuActivation()", "PCAdvice()", "artyomCasinoGiftCard()", "mathsStuff('Weathered Maths Notebook', '6 7 Kid')", "mathsStuff('Weathered Maths Notebook', '6 7 Kid')", "bingChilling()", "chessBoardActivation()", "tennisGame()", "chessAdvice()", "smpSummary()", "politicsAdvice()", "PS2Menu()", "gameAdvice()", "consume('Hamburger', 'eat')", "consume('Fries', 'eat')", "consume('Cheeseburger', 'eat')", "consume('Soda', 'drink')", "doubleCoins()", "win()", "freeMoneyButtonActivation()"];
 
-const version = "Infinite Trade alpha v0.7.3α";
+const version = "Infinite Trade alpha v0.7.4α";
 
 // Variables
 
@@ -523,11 +523,13 @@ let goldenHamTimesUsed = 0;
 let cheated = false;
 let wasUpdated = false;
 let times2xmultiplierused = 0.5;
+let freeMoneyButtonActivated = false;
 
 // Saved variables & on DOM load
 
 const buttonl1 = document.getElementById("buttonl1");
 const buttonl2 = document.getElementById("buttonl2");
+const buttonr4 = document.getElementById("buttonr4");
 const inventoryList = document.getElementById("inventoryList");
 const armyMenu = document.getElementById("armyMenu");
 const armyClassDisplay = document.getElementById("armyClass");
@@ -541,12 +543,12 @@ const armyHelp = document.querySelector(".armyHelp");
 // let savedVariableList = ["inventory", "coinsAmount", "socialCreditsAmount", "armyActivated", "navyActivated", "currentArmyClassNo", "eternalOinkActivated", "wasEventNotificationViewed", "goldenHamTimesUsed"];
 // let defaultValueList = [[], 10, 0, false, false, 0, false, false, 0];
 
-console.log(localStorage);
+// console.log(localStorage);
 
 function loadData() {
     let loadedInventory = localStorage.getItem("inventory");
     if (loadedInventory != null) {
-        console.log(JSON.parse(loadedInventory));
+        // console.log(JSON.parse(loadedInventory));
         inventory = JSON.parse(loadedInventory);
         if (inventory.length != 0) {
             buttonl2.style.display = "block";
@@ -666,6 +668,18 @@ function loadData() {
         wasUpdated = true;
     };
 
+    let loadedFreeMoneyButtonActivated = localStorage.getItem("freeMoneyButtonActivated");
+    if (loadedFreeMoneyButtonActivated == "1") {
+        freeMoneyButtonActivated = true;
+        buttonr4.style.display = "block";
+    }
+    else if (loadedFreeMoneyButtonActivated == "0") {
+        freeMoneyButtonActivated = false;
+    }
+    else {
+        isDataMissing = true;
+    }
+
     if (isDataMissing == true) {
         console.log("%c Some data was missing or corrupted and had been reset to default values. If you are playing this game for the 1st time or are playing on an experimental/unstable build, please ignore this message", 'color: #ff0000');
     }
@@ -727,6 +741,7 @@ const storeCloseButton = document.getElementById("storeCloseButton");
 const moneyMultiplierx2PurchaseButton = document.getElementById("2xMoneyMultiplierButton");
 const gameTitle = document.querySelector(".header-title");
 const winPurchaseButton = document.getElementById("winPurchaseButton");
+const freeMoneyButtonPurchaseButton = document.getElementById("freeMoneyButtonPurchaseButton");
 
 // Declaring buttons
 // const buttonl1 = document.getElementById("buttonl1");
@@ -747,7 +762,7 @@ const buttonl15 = document.getElementById("buttonl15");
 const buttonr1 = document.getElementById("buttonr1");
 const buttonr2 = document.getElementById("buttonr2");
 const buttonr3 = document.getElementById("buttonr3");
-const buttonr4 = document.getElementById("buttonr4");
+// const buttonr4 = document.getElementById("buttonr4");
 const buttonr5 = document.getElementById("buttonr5");
 const buttonr6 = document.getElementById("buttonr6");
 const buttonr7 = document.getElementById("buttonr7");
@@ -889,7 +904,7 @@ function gameAdvice() {
 
 function doubleCoins() {
     times2xmultiplierused += 0.3;
-    console.log("Variable = " + times2xmultiplierused + " Multiplier = " + 2/times2xmultiplierused);
+    // console.log("Variable = " + times2xmultiplierused + " Multiplier = " + 2/times2xmultiplierused);
     multiplyCoins(2 / times2xmultiplierused);
 }
 
@@ -905,6 +920,12 @@ function win() {
     gameTitle.textContent = "Infinite Trade 2";
 };
 
+function freeMoneyButtonActivation() {
+    buttonr4.style.display = "block";
+    freeMoneyButtonActivated = true;
+    saveData();
+};
+
 // Main script
 
 // let savedVariableList = ["inventory", "coinsAmount", "socialCreditsAmount", "armyActivated", "navyActivated", "currentArmyClassNo", "eternalOinkActivated", "wasEventNotificationViewed", "goldenHamTimesUsed"];
@@ -914,8 +935,8 @@ function saveData() {
     localStorage.setItem("socialCreditsAmount", String(socialCreditsAmount));
     localStorage.setItem("goldenHamTimesUsed", String(goldenHamTimesUsed));
     localStorage.setItem("times2xmultiplierused", String(times2xmultiplierused));
-    console.log(localStorage.getItem("times2xmultiplierused"));
-    console.log(String(times2xmultiplierused));
+    // console.log(localStorage.getItem("times2xmultiplierused"));
+    // console.log(String(times2xmultiplierused));
     localStorage.setItem("currentArmyClassNo", String(currentArmyClassNo));
     localStorage.setItem("inventory", JSON.stringify(inventory));
     localStorage.setItem("previousVersion", version);
@@ -947,6 +968,13 @@ function saveData() {
     else {
         localStorage.setItem("wasEventNotificationViewed", "0");
     };
+
+    if (freeMoneyButtonActivated == true) {
+        localStorage.setItem("freeMoneyButtonActivated", "1");
+    }
+    else {
+        localStorage.setItem("freeMoneyButtonActivated", "0");
+    };
 }
 
 saveData()
@@ -970,6 +998,25 @@ function cheatCheck() {
 }
 
 // cheatCheck();
+
+function freeMoneyButton() {
+    if (freeMoneyButtonActivated == true) {
+        coinsAmount += 1;
+        coinDisplay.textContent = "Coins: " + coinsAmount;
+        saveData();
+        freeMoneyButtonActivated = false;
+        buttonr4.style.display = "none";
+        setTimeout(freeMoneyButtonActivation,  4000);
+    }
+    else {
+        alert("You are a CHEATER! I mean, I just don't get you; why are you trying to ruin the fun for yourself? Anyways, press OK to delete all data");
+        coinsAmount = -666;
+        coinDisplay.textContent = "Coins: " + coinsAmount;
+        localStorage.clear();
+    }
+};
+
+buttonr4.addEventListener("mousedown", freeMoneyButton);
 
 function hasItem(idToFind) {
     return inventory.some(item => item.id == idToFind);
@@ -1550,6 +1597,10 @@ function storefrontPurchase(bId) {
         var purchasedItem = traders["Official storefront"].lootPool["2x Money multiplier"];
         var purchasedItemName = "2x Money Multiplier";
     }
+    else if (bId == 2) {
+        var purchasedItem = traders["Official storefront"].lootPool["Free Money button"];
+        var purchasedItemName = "Free Money button"
+    }
     else if (bId == 67) {
         var purchasedItem = traders["Official storefront"].lootPool["Win"];
         var purchasedItemName = "Win";
@@ -1590,6 +1641,7 @@ function storefrontPurchase(bId) {
 
 moneyMultiplierx2PurchaseButton.addEventListener("click", () => { storefrontPurchase(1) });
 winPurchaseButton.addEventListener("click", () => { storefrontPurchase(67) });
+freeMoneyButtonPurchaseButton.addEventListener("click", () => { storefrontPurchase(2) });
 
 // Should I start adding comments?
 
